@@ -59,18 +59,22 @@ public class Starter extends BasicGame{
 
     private void moveActors() {
         this.circleActor.move(1);
-        this.rectangleActor.move(1);
+        this.rectangleActor.move(4);
     }
 
     private void RectangleActorLogic() {
         if (this.rectangleActor.getMoveStrategy().getX() > 700) {
             this.rectangleActor.setMoveStrategy(new DownMoveStrategy(this.rectangleActor.getMoveStrategy().getX(), this.rectangleActor.getMoveStrategy().getY()));
+            this.rectangleActor.getMoveStrategy().setX(700);
         } else if (this.rectangleActor.getMoveStrategy().getY() > 500) {
             this.rectangleActor.setMoveStrategy(new LeftMoveStrategy(this.rectangleActor.getMoveStrategy().getX(), this.rectangleActor.getMoveStrategy().getY()));
+            this.rectangleActor.getMoveStrategy().setY(500);
         } else if (this.rectangleActor.getMoveStrategy().getX() < 50) {
             this.rectangleActor.setMoveStrategy(new UpMoveStrategy(this.rectangleActor.getMoveStrategy().getX(), this.rectangleActor.getMoveStrategy().getY()));
+            this.rectangleActor.getMoveStrategy().setX(50);
         } else if (this.rectangleActor.getMoveStrategy().getY() < 50) {
             this.rectangleActor.setMoveStrategy(new RightMoveStrategy(this.rectangleActor.getMoveStrategy().getX(), this.rectangleActor.getMoveStrategy().getY()));
+            this.rectangleActor.getMoveStrategy().setY(50);
         }
     }
 
