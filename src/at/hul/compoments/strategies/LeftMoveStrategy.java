@@ -1,8 +1,8 @@
 package at.hul.compoments.strategies;
 
-import at.hul.compoments.interfaces.IMoveStrategy;
+import at.hul.compoments.interfaces.MoveStrategy;
 
-public class LeftMoveStrategy implements IMoveStrategy {
+public class LeftMoveStrategy implements MoveStrategy {
     private int x,y;
 
     public LeftMoveStrategy(int x, int y) {

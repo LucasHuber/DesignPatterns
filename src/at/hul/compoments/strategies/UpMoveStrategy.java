@@ -1,8 +1,8 @@
 package at.hul.compoments.strategies;
 
-import at.hul.compoments.interfaces.IMoveStrategy;
+import at.hul.compoments.interfaces.MoveStrategy;
 
-public class UpMoveStrategy implements IMoveStrategy {
+public class UpMoveStrategy implements MoveStrategy {
     private int x,y;
 
     public UpMoveStrategy(int x, int y) {

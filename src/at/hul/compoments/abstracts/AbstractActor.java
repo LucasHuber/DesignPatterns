@@ -1,13 +1,12 @@
 package at.hul.compoments.abstracts;
 
-import at.hul.compoments.interfaces.IActor;
-import at.hul.compoments.interfaces.IMoveStrategy;
+import at.hul.compoments.interfaces.Actor;
+import at.hul.compoments.interfaces.MoveStrategy;
 
-public abstract class AbstractActor implements IActor {
-    protected IMoveStrategy IMoveStrategy;
-
-    public AbstractActor(IMoveStrategy IMoveStrategy) {
-        this.IMoveStrategy = IMoveStrategy;
+public abstract class AbstractActor implements Actor {
+    protected MoveStrategy MoveStrategy;
+    public AbstractActor(MoveStrategy MoveStrategy) {
+        this.MoveStrategy = MoveStrategy;
     }
 
 }

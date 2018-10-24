@@ -1,6 +1,6 @@
 package at.hul.compoments.interfaces;
 
-public interface IMoveStrategy {
+public interface MoveStrategy {
     void update(int speed);
     int getX();
     int getY();

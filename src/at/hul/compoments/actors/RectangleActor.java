@@ -1,36 +1,38 @@
 package at.hul.compoments.actors;
 
 import at.hul.compoments.abstracts.AbstractActor;
-import at.hul.compoments.interfaces.IMoveStrategy;
+import at.hul.compoments.interfaces.MoveStrategy;
+import at.hul.compoments.interfaces.Observer;
+import at.hul.compoments.strategies.RightMoveStrategy;
 import org.newdawn.slick.Graphics;
 
-public class RectangleActor extends AbstractActor {
+public class RectangleActor extends AbstractActor implements Observer {
     private int width, height;
 
-    public RectangleActor(IMoveStrategy IMoveStrategy, int width, int height) {
-        super(IMoveStrategy);
+    public RectangleActor(MoveStrategy MoveStrategy, int width, int height) {
+        super(MoveStrategy);
         this.width = width;
         this.height = height;
     }
 
     @Override
     public void move(int speed) {
-        IMoveStrategy.update(speed);
+        MoveStrategy.update(speed);
     }
 
     @Override
     public void render(Graphics graphics) {
-        graphics.drawRect(IMoveStrategy.getX(), IMoveStrategy.getY(), this.width, this.height);
+        graphics.drawRect(MoveStrategy.getX(), MoveStrategy.getY(), this.width, this.height);
     }
 
     @Override
-    public void setMoveStrategy(IMoveStrategy moveStrategy) {
-        this.IMoveStrategy = moveStrategy;
+    public void setMoveStrategy(MoveStrategy moveStrategy) {
+        this.MoveStrategy = moveStrategy;
     }
 
     @Override
-    public IMoveStrategy getMoveStrategy() {
-        return IMoveStrategy;
+    public MoveStrategy getMoveStrategy() {
+        return MoveStrategy;
     }
 
     public int getWidth() {
@@ -47,5 +49,10 @@ public class RectangleActor extends AbstractActor {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    @Override
+    public void inform() {
+        this.setMoveStrategy(new RightMoveStrategy(this.MoveStrategy.getX(), this.MoveStrategy.getY()));
     }
 }
