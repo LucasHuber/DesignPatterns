@@ -2,6 +2,7 @@ package at.hul.main;
 
 import at.hul.compoments.actors.CircleActor;
 import at.hul.compoments.actors.RectangleActor;
+import at.hul.compoments.actors.ShapeActor;
 import at.hul.compoments.interfaces.Actor;
 import at.hul.compoments.interfaces.Observable;
 import at.hul.compoments.interfaces.Observer;
@@ -12,6 +13,8 @@ import at.hul.compoments.strategies.UpMoveStrategy;
 import org.newdawn.slick.*;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 
 public class Starter extends BasicGame implements Observable {
@@ -20,6 +23,7 @@ public class Starter extends BasicGame implements Observable {
     private CircleActor circleActor;
     private RectangleActor rectangleActor;
     private ArrayList<Actor> actors = new ArrayList<>();
+    private ArrayList<Actor> randomActors = new ArrayList<>();
     private ArrayList<Observer> observers = new ArrayList<>();
 
     public Starter() {
@@ -43,10 +47,7 @@ public class Starter extends BasicGame implements Observable {
 
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-        for (Actor actor:
-             this.actors) {
-            actor.render(graphics);
-        }
+        actors.forEach(actor -> actor.render(graphics));
 
     }
 
@@ -68,6 +69,10 @@ public class Starter extends BasicGame implements Observable {
         actors.add(this.circleActor);
         observers.add(this.rectangleActor);
         observers.add(this.circleActor);
+
+        for(int i = 0; i < 20; i++){
+            actors.add(new ShapeActor(new RightMoveStrategy(100 + new Random().nextInt(500), 100 + new Random().nextInt(400)), 100, 50, ShapeActor.generateRandomShape()));
+        }
     }
 
     private void CircleActorLogic() {
@@ -79,15 +84,14 @@ public class Starter extends BasicGame implements Observable {
     }
 
     private void moveActors() {
-        this.circleActor.move(1);
-        this.rectangleActor.move(4);
+        actors.forEach(actor -> actor.move(2));
     }
 
     private void RectangleActorLogic() {
-        if (this.rectangleActor.getMoveStrategy().getX() > WIDTH-100) {
+        if (this.rectangleActor.getMoveStrategy().getX() > WIDTH - 100) {
             this.rectangleActor.setMoveStrategy(new DownMoveStrategy(this.rectangleActor.getMoveStrategy().getX(), this.rectangleActor.getMoveStrategy().getY()));
             this.rectangleActor.getMoveStrategy().setX(700);
-        } else if (this.rectangleActor.getMoveStrategy().getY() > HEIGHT-100) {
+        } else if (this.rectangleActor.getMoveStrategy().getY() > HEIGHT - 100) {
             this.rectangleActor.setMoveStrategy(new LeftMoveStrategy(this.rectangleActor.getMoveStrategy().getX(), this.rectangleActor.getMoveStrategy().getY()));
             this.rectangleActor.getMoveStrategy().setY(500);
         } else if (this.rectangleActor.getMoveStrategy().getX() < 50) {
@@ -106,9 +110,7 @@ public class Starter extends BasicGame implements Observable {
 
     @Override
     public void informAll() {
-        for (Observer observer: observers) {
-            observer.inform();
-        }
+        observers.forEach(observer -> observer.inform());
     }
 
     //------------------------------------------------------------------------------------------
