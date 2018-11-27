@@ -3,6 +3,7 @@ package at.hul.main;
 import at.hul.compoments.actors.CircleActor;
 import at.hul.compoments.actors.RectangleActor;
 import at.hul.compoments.actors.ShapeActor;
+import at.hul.compoments.actors.SingletonScore;
 import at.hul.compoments.interfaces.Actor;
 import at.hul.compoments.interfaces.Observable;
 import at.hul.compoments.interfaces.Observer;
@@ -14,7 +15,6 @@ import org.newdawn.slick.*;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 
 public class Starter extends BasicGame implements Observable {
@@ -75,6 +75,11 @@ public class Starter extends BasicGame implements Observable {
         }
     }
 
+    private void incrementScoreAndShow(){
+        SingletonScore.getInstance().incrementScore();
+        System.out.println(SingletonScore.getInstance().showScore());
+    }
+
     private void CircleActorLogic() {
         if (this.circleActor.getMoveStrategy().getY() > HEIGHT) {
             this.circleActor.setMoveStrategy(new UpMoveStrategy(this.circleActor.getMoveStrategy().getX(),this.circleActor.getMoveStrategy().getY()));
@@ -91,15 +96,19 @@ public class Starter extends BasicGame implements Observable {
         if (this.rectangleActor.getMoveStrategy().getX() > WIDTH - 100) {
             this.rectangleActor.setMoveStrategy(new DownMoveStrategy(this.rectangleActor.getMoveStrategy().getX(), this.rectangleActor.getMoveStrategy().getY()));
             this.rectangleActor.getMoveStrategy().setX(700);
+            this.incrementScoreAndShow();
         } else if (this.rectangleActor.getMoveStrategy().getY() > HEIGHT - 100) {
             this.rectangleActor.setMoveStrategy(new LeftMoveStrategy(this.rectangleActor.getMoveStrategy().getX(), this.rectangleActor.getMoveStrategy().getY()));
             this.rectangleActor.getMoveStrategy().setY(500);
+            this.incrementScoreAndShow();
         } else if (this.rectangleActor.getMoveStrategy().getX() < 50) {
             this.rectangleActor.setMoveStrategy(new UpMoveStrategy(this.rectangleActor.getMoveStrategy().getX(), this.rectangleActor.getMoveStrategy().getY()));
             this.rectangleActor.getMoveStrategy().setX(50);
+            this.incrementScoreAndShow();
         } else if (this.rectangleActor.getMoveStrategy().getY() < 50) {
             this.rectangleActor.setMoveStrategy(new RightMoveStrategy(this.rectangleActor.getMoveStrategy().getX(), this.rectangleActor.getMoveStrategy().getY()));
             this.rectangleActor.getMoveStrategy().setY(50);
+            this.incrementScoreAndShow();
         }
     }
 
