@@ -5,7 +5,7 @@ public class SingletonScore {
 
     private int score;
 
-    public SingletonScore(){
+    private SingletonScore(){
         score = 0;
     }
 

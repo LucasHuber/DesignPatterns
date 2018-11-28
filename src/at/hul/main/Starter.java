@@ -23,7 +23,6 @@ public class Starter extends BasicGame implements Observable {
     private CircleActor circleActor;
     private RectangleActor rectangleActor;
     private ArrayList<Actor> actors = new ArrayList<>();
-    private ArrayList<Actor> randomActors = new ArrayList<>();
     private ArrayList<Observer> observers = new ArrayList<>();
 
     public Starter() {
